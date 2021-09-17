@@ -1,0 +1,26 @@
+.card-dashboard-product {
+    margin-bottom: 20px;
+
+    .card-body {
+        img {
+            border-radius: 8px;
+            max-width: 300px;
+            max-height: 200px;
+            // margin-left: 25px;
+            box-shadow: 0px 4px 15px #C5C5C5;
+        }
+
+        .product-title {
+            font-size: 18px;
+            line-height: 27px;
+            color: #0C0D36;
+
+        }
+
+        .product-subtitle {
+            font-size: 16px;
+            line-height: 24px;
+            color: #C5C5C5;
+        }
+    }
+}
