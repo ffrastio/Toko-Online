@@ -3,7 +3,8 @@
         navbar navbar-light navbar-expand-lg
         fixed-top
         navbar-store navbar-fixed-top
-      " data-aos="fade-down">
+      "
+    data-aos="fade-down">
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand">
             <img src="/images/logo.svg" alt="logo" />
@@ -22,15 +23,53 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">Rewards</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Sign Up</a>
-                </li>
-                <li>
-                    <a href="/login.html" class="btn btn-success px-4 text-white">
-                        Sign in
-                    </a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" class="nav-link">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('login') }}" class="btn btn-success px-4 text-white">
+                            Sign in
+                        </a>
+                    </li>
+                @endguest
             </ul>
+            @auth
+                <!-- Desktop Menu -->
+                <ul class="navbar-nav d-none d-lg-flex">
+                    <li class="navbar-item dropdown">
+                        <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
+                            <img src="/images/icon-user.png" alt="" class="rounded-circle mr-2 profile-picture" />
+                            Hi, {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                            <a href="{{ route('dashboard-setting-account') }}" class="dropdown-item">Setting</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                  document.getElementById('logout-form').submit();"
+                                class="dropdown-item">Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link d-inline-block mt-2">
+                            <img src="/images/icon-cart-empty.svg" alt="" />
+                        </a>
+                    </li>
+                </ul>
+                <!-- Mobile Menu -->
+                <ul class="navbar-nav d-block d-lg-none">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"> Hi, User </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link d-inline-block"> Cart </a>
+                    </li>
+                </ul>
+            @endauth
         </div>
     </div>
 </nav>
