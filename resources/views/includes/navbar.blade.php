@@ -47,7 +47,7 @@
                             <a href="{{ route('dashboard-setting-account') }}" class="dropdown-item">Setting</a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                  document.getElementById('logout-form').submit();"
+                                                          document.getElementById('logout-form').submit();"
                                 class="dropdown-item">Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -55,8 +55,17 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link d-inline-block mt-2">
-                            <img src="/images/icon-cart-empty.svg" alt="" />
+                        <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2">
+                            @php
+                                $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count();
+                            @endphp
+                            @if ($carts > 0)
+                                <img src="/images/icon-cart-filled.svg" alt="" />
+                                <div class="card-badge">{{ $carts }}</div>
+                            @else
+
+                                <img src="/images/icon-cart-empty.svg" alt="" />
+                            @endif
                         </a>
                     </li>
                 </ul>
@@ -66,7 +75,7 @@
                         <a href="#" class="nav-link"> Hi, User </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link d-inline-block"> Cart </a>
+                        <a href="{{ route('cart') }}" class="nav-link d-inline-block"> Cart </a>
                     </li>
                 </ul>
             @endauth

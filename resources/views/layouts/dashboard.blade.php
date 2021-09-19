@@ -72,7 +72,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link d-inline-block mt-2">
+                                    <a href="/cart" class="nav-link d-inline-block mt-2">
                                         <img src="/images/icon-cart-filled.svg" alt="" />
                                         <div class="card-badge">3</div>
                                     </a>
