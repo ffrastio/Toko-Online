@@ -31,9 +31,10 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label>Email Address</label>
-                                <input id="email" v-model="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" v-model="email" name="email" @change="checkForEmailAvailbility()"
+                                    type="email" class="form-control @error('email') is-invalid @enderror"
+                                    :class="{ 'is-invalid' : this.email_unavailable }" value="{{ old('email') }}" required
+                                    autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -100,7 +101,8 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-success px-4 btn-block">Sign Up Now</button>
+                            <button type="submit" class="btn btn-success px-4 btn-block"
+                                :disabled="this.email_unvailable">Sign Up Now</button>
                             <a href="{{ route('login') }}" class="btn btn-signup mt-2 px-4 btn-block">Back to Sign In</a>
                         </form>
                     </div>
@@ -110,7 +112,7 @@
     </div>
     <!-- End Content -->
 
-    <div class="container" style="display: none">
+    {{-- <div class="container" style="display: none">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -190,34 +192,62 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('addon-script')
     <script src="/vendor/vue/vue.js"></script>
     <script src="https://unpkg.com/vue-toasted"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         Vue.use(Toasted);
-
         var register = new Vue({
             el: "#register",
             mounted() {
                 AOS.init();
-
-                // this.$toasted.error(
-                //     "Maaf, tampaknya email sudah terdaftar pada sistem kami.", {
-                //         position: "top-center",
-                //         className: "rounded",
-                //         duration: 2000,
-                //     }
-                // );
             },
-            data: {
-                name: "Fani Frastio",
-                email: "fanitl2a@gmail.com",
-                password: "",
-                is_store_open: true,
-                name_store: "",
+            methods: {
+                checkForEmailAvailbility: function() {
+                    var self = this;
+                    axios.get('{{ route('api-register-check') }}', {
+                            params: {
+                                email: self.email
+                            }
+                        })
+                        .then(function(response) {
+                            if (response.data == 'Available') {
+                                self.$toasted.show(
+                                    "Email anda tersedia, silahkan lanjut pendaftaran", {
+                                        position: "top-center",
+                                        className: "rounded",
+                                        duration: 2000,
+                                    }
+                                );
+                                self.email_unvailable = false;
+                            } else {
+                                self.$toasted.error(
+                                    "Maaf, tampaknya email sudah terdaftar pada sistem kami.", {
+                                        position: "top-center",
+                                        className: "rounded",
+                                        duration: 2000,
+                                    }
+                                );
+                                self.email_unvailable = true;
+                            }
+
+                            console.log(response);
+                        });
+                }
+            },
+
+            data() {
+                return {
+                    name: "Fani Frastio",
+                    email: "fanitl2a@gmail.com",
+                    is_store_open: true,
+                    store_name: "",
+                    email_unvailable: false,
+                }
             },
         });
     </script>

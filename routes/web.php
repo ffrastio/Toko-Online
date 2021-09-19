@@ -30,7 +30,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::get('/category/{id}', [CategoryController::class, 'detail'])->name('category-detail');
 Route::get('/detail/{id}', [DetailController::class, 'index'])->name('detail');
+Route::post('/detail/{id}', [DetailController::class, 'add'])->name('detail-add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart-delete');
 Route::get('/success', [SuccessController::class, 'index'])->name('success');
 
 Route::get('/register-success', [SuccessController::class, 'registerSuccess'])->name('register-success');

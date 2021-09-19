@@ -28,68 +28,54 @@
         <section class="store-cart">
             <div class="container">
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
-                    <div class="col-12 table-responsive">
-                        <table class="table table-borderless table-cart">
-                            <thead>
-                                <tr>
-                                    <td>Image</td>
-                                    <td>Name &amp; Seller</td>
-                                    <td>Price</td>
-                                    <td>Action</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="width: 25%">
-                                        <img src="/images/product-sofa.jpg" alt="" class="image-table" />
-                                    </td>
-                                    <td style="width: 35%">
-                                        <div class="product-title">Sofa Ternyaman</div>
-                                        <div class="product-subtitle">by Fani Frastio</div>
-                                    </td>
-                                    <td style="width: 35%">
-                                        <div class="product-title">Rp 1.000.000</div>
-                                        <div class="product-subtitle">Rupiah</div>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <a href="#" class="btn btn-remove-cart px-4">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 25%">
-                                        <img src="/images/product-sneaker.jpg" alt="" class="image-table" />
-                                    </td>
-                                    <td style="width: 35%">
-                                        <div class="product-title">Sneaker</div>
-                                        <div class="product-subtitle">by BuildWith Angga</div>
-                                    </td>
-                                    <td style="width: 35%">
-                                        <div class="product-title">Rp 2.000.000</div>
-                                        <div class="product-subtitle">Rupiah</div>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <a href="#" class="btn btn-remove-cart px-4">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 25%">
-                                        <img src="/images/product-coffee.jpg" alt="" class="image-table" />
-                                    </td>
-                                    <td style="width: 35%">
-                                        <div class="product-title">Coffee Holder</div>
-                                        <div class="product-subtitle">by BuildWith Angga</div>
-                                    </td>
-                                    <td style="width: 35%">
-                                        <div class="product-title">Rp 500.000</div>
-                                        <div class="product-subtitle">Rupiah</div>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <a href="#" class="btn btn-remove-cart px-4">Delete</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    @forelse ($carts as $cart)
+                        <div class="col-12 table-responsive">
+                            <table class="table table-borderless table-cart">
+                                <thead>
+                                    <tr>
+                                        <td>Image</td>
+                                        <td>Name &amp; Seller</td>
+                                        <td>Price</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 25%">
+                                            <img src="{{ Storage::url($cart->product->galleries->first()->photos) }}"
+                                                alt="" class="image-table" />
+                                        </td>
+                                        <td style="width: 35%">
+                                            <div class="product-title">{{ $cart->product->name }}</div>
+                                            <div class="product-subtitle">by {{ $cart->user->store_name }}</div>
+                                        </td>
+                                        <td style="width: 35%">
+                                            <div class="product-title">Rp {{ number_format($cart->product->price) }}
+                                            </div>
+                                            <div class="product-subtitle">Rupiah</div>
+                                        </td>
+                                        <td style="width: 20%">
+                                            <form action="{{ route('cart-delete', $cart->id) }}" method="post">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-remove-cart px-4">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @empty
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <h5>Silahkan masukkan barang kedalam keranjang</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
                 <div class="row" data-aos="fade-up" data-aos-delay="150">
                     <div class="col-12">

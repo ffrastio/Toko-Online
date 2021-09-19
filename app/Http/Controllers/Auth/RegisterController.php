@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -89,5 +90,10 @@ class RegisterController extends Controller
             'categories_id' => isset($data['categories_id']) ? $data['categories_id'] : NULL,
             'store_status' => isset($data['is_store_open']) ? 1 : 0,
         ]);
+    }
+
+    public function check(Request $request)
+    {
+        return User::where('email', $request->email)->count() > 0 ? 'Unvailable' : 'Available';
     }
 }
