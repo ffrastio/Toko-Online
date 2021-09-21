@@ -15,9 +15,10 @@ class Transactions extends Model
      * @var string[]
      */
     protected $fillable = [
-        'user_id',
+        'users_id',
         'insurance_price',
         'shipping_price',
+        'transaction_status',
         'total_price',
         'code',
     ];

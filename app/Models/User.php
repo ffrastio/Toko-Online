@@ -24,7 +24,14 @@ class User extends Authenticatable
         'roles',
         'store_name',
         'store_status',
-        'categories_id'
+        'categories_id',
+        'address_one',
+        'address_two',
+        'provinces_id',
+        'regencies_id',
+        'zip_code',
+        'country',
+        'phone_number'
     ];
 
     /**

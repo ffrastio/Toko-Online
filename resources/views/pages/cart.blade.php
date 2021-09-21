@@ -84,8 +84,9 @@
                         </table>
                     </div>
                 </div>
-                <form action="" method="POST" id="locations">
+                <form action="{{ route('checkout') }}" method="POST" id="locations" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="total_price" value="{{ $totalPrice }}">
                     <div class="row" data-aos="fade-up" data-aos-delay="150">
                         <div class="col-12">
                             <hr />
@@ -114,7 +115,8 @@
                                 <label for="provinces_id">Province</label>
                                 <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces"
                                     v-model="provinces_id">
-                                    <option v-for="province in provinces" :value="province.id">@{{ province . name }}</option>
+                                    <option v-for="province in provinces" :value="province.id">@{{ province . name }}
+                                    </option>
                                 </select>
                                 <select v-else class="form-control"></select>
                             </div>
@@ -124,7 +126,8 @@
                                 <label for="regencies_id">City</label>
                                 <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies"
                                     v-model="regencies_id">
-                                    <option v-for="regency in regencies" :value="regency.id">@{{ regency . name }}</option>
+                                    <option v-for="regency in regencies" :value="regency.id">@{{ regency . name }}
+                                    </option>
                                 </select>
                                 <select v-else class="form-control"></select>
                             </div>
@@ -171,7 +174,7 @@
                             <div class="product-subtitle">Total</div>
                         </div>
                         <div class="col-8 col-md-3">
-                            <a href="/success.html" class="btn btn-success mt-4 px-4 btn-block">Checkout Now</a>
+                            <button type="submit" class="btn btn-success mt-4 px-4 btn-block">Checkout Now</button>
                         </div>
                     </div>
                 </form>
