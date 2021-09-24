@@ -47,7 +47,7 @@
                             <a href="{{ route('dashboard-setting-account') }}" class="dropdown-item">Setting</a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                          document.getElementById('logout-form').submit();"
+                                                              document.getElementById('logout-form').submit();"
                                 class="dropdown-item">Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -72,7 +72,7 @@
                 <!-- Mobile Menu -->
                 <ul class="navbar-nav d-block d-lg-none">
                     <li class="nav-item">
-                        <a href="#" class="nav-link"> Hi, User </a>
+                        <a href="#" class="nav-link"> Hi, {{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('cart') }}" class="nav-link d-inline-block"> Cart </a>

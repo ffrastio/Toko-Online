@@ -26,13 +26,16 @@
                     <img src="/images/admin.png" alt="" class="my-4" style="max-width: 100px" />
                 </div>
                 <div class="list-group list-group-flush ">
-                    <a href="{{ route('Admindashboard-admin') }}" class="list-group-item list-group-item-action {{ request()->is('admin') ? 'active' : '' }}">
+                    <a href="{{ route('Admindashboard-admin') }}"
+                        class="list-group-item list-group-item-action {{ request()->is('admin') ? 'active' : '' }}">
                         Dashboard
                     </a>
-                    <a href="{{ route('Adminproduct.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/product') ? 'active' : '' }}">
+                    <a href="{{ route('Adminproduct.index') }}"
+                        class="list-group-item list-group-item-action {{ request()->is('admin/product') ? 'active' : '' }}">
                         Product
                     </a>
-                    <a href="{{ route('Adminproduct-gallery.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/product-gallery*') ? 'active' : '' }}">
+                    <a href="{{ route('Adminproduct-gallery.index') }}"
+                        class="list-group-item list-group-item-action {{ request()->is('admin/product-gallery*') ? 'active' : '' }}">
                         Galleries
                     </a>
                     <a href="{{ route('Admincategory.index') }}"
@@ -42,9 +45,16 @@
                     <a href="#" class="list-group-item list-group-item-action">
                         Transactions
                     </a>
-                    <a href="{{ route('Adminuser.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/user*') ? 'active' : '' }}">
+                    <a href="{{ route('Adminuser.index') }}"
+                        class="list-group-item list-group-item-action {{ request()->is('admin/user*') ? 'active' : '' }}">
                         Users
                     </a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                              document.getElementById('logout-form').submit();"
+                        class="list-group-item list-group-item-action">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
             <!-- Page Content -->

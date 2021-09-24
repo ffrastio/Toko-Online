@@ -50,13 +50,23 @@ Route::group(['middleware' => ['auth']], function () {
 
     // User Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('/dashboard/products', [DashboardProductController::class, 'index'])->name('dashboard-products');
-    Route::get('/dashboard/product/create', [DashboardProductController::class, 'add'])->name('dashboard-product-create');
+    Route::get('/dashboard/product/create', [DashboardProductController::class, 'create'])->name('dashboard-product-create');
+    Route::post('/dashboard/product', [DashboardProductController::class, 'store'])->name('dashboard-product-store');
     Route::get('/dashboard/product/{id}', [DashboardProductController::class, 'details'])->name('dashboard-product-details');
+    Route::post('/dashboard/product/{id}', [DashboardProductController::class, 'update'])->name('dashboard-product-update');
+
+    Route::post('/dashboard/product/gallery/upload', [DashboardProductController::class, 'uploadGallery'])->name('dashboard-product-gallery-upload');
+    Route::get('/dashboard/product/gallery/delete/{id}', [DashboardProductController::class, 'deleteGallery'])->name('dashboard-product-gallery-delete');
+
     Route::get('/dashboard/transactions', [DashboardTransactionsController::class, 'index'])->name('dashboard-transaction');
-    Route::get('/dashboard/transaction/{id}', [DashboardTransactionsController::class, 'details'])->name('dashboard-transaction-details');
+    Route::get('/dashboard/transactions/{id}', [DashboardTransactionsController::class, 'details'])->name('dashboard-transaction-details');
+
     Route::get('/dashboard/settings', [DashboardSettingController::class, 'store'])->name('dashboard-setting-store');
+
     Route::get('/dashboard/account', [DashboardSettingController::class, 'account'])->name('dashboard-setting-account');
+    Route::post('/dashboard/account/{redirect}', [DashboardSettingController::class, 'update'])->name('dashboard-setting-redirect');
 });
 // Admin Dashboard
 Route::prefix('admin')

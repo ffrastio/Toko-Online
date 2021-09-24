@@ -29,4 +29,12 @@ class TransactionDetail extends Model
      * @var array
      */
     protected $hidden = [];
+    
+    public function product(){
+        return $this->hasOne(Product::class, 'id', 'product_id' );
+    }
+
+    public function transaction(){
+        return $this->hasOne(Transactions::class, 'id', 'transaction_id');
+    }
 }

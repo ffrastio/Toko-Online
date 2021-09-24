@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardSettingController extends Controller
 {
@@ -18,11 +20,20 @@ class DashboardSettingController extends Controller
 
     public function store()
     {
-        return view('pages.dashboard-settings');
+        $user = Auth::user();
+        $categories = Category::all();
+        return view('pages.dashboard-settings', [
+            'user' => $user,
+            'categories' => $categories,
+        ]);
     }
 
-    public function account(){
-        return view('pages.dashboard-account');
+    public function account()
+    {
+        $user = Auth::user();
+        return view('pages.dashboard-account', [
+            'user' => $user,
+        ]);
     }
     /**
      * Show the form for creating a new resource.
@@ -74,9 +85,15 @@ class DashboardSettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $redirect)
     {
-        //
+        // 
+        $data = $request->all();
+        $item = Auth::user();
+
+        $item->update($data);
+
+        return redirect()->route($redirect);
     }
 
     /**
