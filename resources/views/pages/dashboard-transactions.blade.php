@@ -31,69 +31,43 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-sell-product" role="tabpanel"
                                 aria-labelledby="pills-sell-product-tab">
-                                <a href="{{route ('dashboard-transaction-details', 1)}}" class="card card-list d-block">
+                                @foreach ($sellTransaction as $transaction)
+                                <a href="{{route ('dashboard-transaction-details', $transaction->id)}}" class="card card-list d-block">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-md-1">
-                                                <img src="/images/product-coffee.jpg" alt="" class="image-card" />
+                                                <img src="{{Storage::url($transaction->product->galleries->first()->photos ?? '')}}" alt="" class="image-card" />
                                             </div>
-                                            <div class="col-md-4">Coffee Kedjora</div>
-                                            <div class="col-md-3">Angga Risky</div>
-                                            <div class="col-md-3">12 Januari, 2020</div>
+                                            <div class="col-md-4">{{$transaction->product->name}}</div>
+                                            <div class="col-md-3">{{$transaction->product->user->name}}</div>
+                                            <div class="col-md-3">{{$transaction->created_at}}</div>
                                             <div class="col-md-1">
                                                 <img src="/images/dashboard-arrow-right.svg" alt="" />
                                             </div>
                                         </div>
                                     </div>
                                 </a>
-                                <a href="{{route ('dashboard-transaction-details', 1)}}" class="card card-list d-block">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-1">
-                                                <img src="/images/product-drone.jpg" alt="" class="image-card" />
-                                            </div>
-                                            <div class="col-md-4">Mavic KW</div>
-                                            <div class="col-md-3">Arwama Juhari</div>
-                                            <div class="col-md-3">12 Januari, 2020</div>
-                                            <div class="col-md-1">
-                                                <img src="/images/dashboard-arrow-right.svg" alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="{{route ('dashboard-transaction-details', 1)}}" class="card card-list d-block">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-1">
-                                                <img src="/images/product-nike.jpg" alt="" class="image-card" />
-                                            </div>
-                                            <div class="col-md-4">Nike Black</div>
-                                            <div class="col-md-3">Fahri Saputra</div>
-                                            <div class="col-md-3">12 Januari, 2020</div>
-                                            <div class="col-md-1">
-                                                <img src="/images/dashboard-arrow-right.svg" alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
+                                @endforeach
                             </div>
                             <div class="tab-pane fade" id="pills-buy-product" role="tabpanel"
                                 aria-labelledby="pills-buy-product-tab">
-                                <a href="{{route ('dashboard-transaction-details', 1)}}" class="card card-list d-block">
+                                @foreach ($buyTransaction as $transaction)
+                                <a href="{{route ('dashboard-transaction-details', $transaction->id)}}" class="card card-list d-block">
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-md-1">
-                                                <img src="/images/product-coffee.jpg" alt="" class="image-card" />
+                                                <img src="{{Storage::url($transaction->product->galleries->first()->photos ?? '')}}" alt="" class="image-card" />
                                             </div>
-                                            <div class="col-md-4">Coffee Kedjora</div>
-                                            <div class="col-md-3">Angga Risky</div>
-                                            <div class="col-md-3">12 Januari, 2020</div>
+                                            <div class="col-md-4">{{$transaction->product->name}}</div>
+                                            <div class="col-md-3">{{$transaction->product->user->store_name}}</div>
+                                            <div class="col-md-3">{{$transaction->created_at}}</div>
                                             <div class="col-md-1">
                                                 <img src="/images/dashboard-arrow-right.svg" alt="" />
                                             </div>
                                         </div>
                                     </div>
                                 </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
