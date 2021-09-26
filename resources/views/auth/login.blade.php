@@ -18,17 +18,33 @@
                             Belanja kebutuhan utama,<br />
                             menjadi lebih mudah
                         </h2>
-                        <form action="" class="mt-4">
+                        <form method="POST" action="{{ route('login') }}" class="mt-4">
+                            @csrf
                             <div class="form-group mb-4">
                                 <label>Email Address</label>
-                                <input type="email" class="form-control w-75" />
+                                <input id="email" type="email" class="form-control w-75 @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="form-group mb-4">
                                 <label>Password</label>
-                                <input type="password" class="form-control w-75" />
+                                <input id="password" type="password"
+                                    class="form-control w-75 @error('password') is-invalid @enderror" name="password"
+                                    required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <a href="#" class="btn btn-success px-4 w-75 btn-block">Sign In to My Account</a>
-                            <a href="/register.html" class="btn btn-signup mt-2 px-4 w-75 btn-block">Sign Up</a>
+                            <button type="submit" class="btn btn-success px-4 w-75 btn-block">Sign In to My Account</button>
+                            <a href="{{ route('register') }}" class="btn btn-signup mt-2 px-4 w-75 btn-block">Sign Up</a>
                         </form>
                     </div>
                 </div>
@@ -36,7 +52,7 @@
         </div>
     </div>
     <!-- End Content -->
-    
+
     <div class="container" style="display: none">
         <div class="row justify-content-center">
             <div class="col-md-8">

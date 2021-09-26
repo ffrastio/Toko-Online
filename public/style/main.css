@@ -10908,6 +10908,8 @@ footer p {
 
 .page-detail .store-gallery img {
   border-radius: 10px;
+  max-width: 300px;
+  max-height: 300px;
 }
 
 .page-detail .store-gallery .thumbnail-image {

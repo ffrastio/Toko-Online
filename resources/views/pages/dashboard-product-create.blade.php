@@ -17,53 +17,70 @@
                     <div class="col-12 mt-4">
                         <div class="card">
                             <div class="card-body">
-                                <form action="">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <form action="{{ route('dashboard-product-store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label>Product Name</label>
-                                                <input type="text" class="form-control" placeholder="Shirrup Marjan" />
+                                                <input type="text" class="form-control" placeholder="Shirrup Marjan"
+                                                    name="name" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group mb-4">
                                                 <label>Price</label>
-                                                <input type="number" class="form-control" placeholder="2000" />
+                                                <input type="number" class="form-control" placeholder="20000"
+                                                    name="price" />
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group mb-4">
                                                 <label>Category</label>
-                                                <select name="kategory" class="form-control" placeholder="Foods">
-                                                    <option value="" disabled selected>
-                                                        Select Category
-                                                    </option>
+                                                <select name="categories_id" class="form-control" placeholder="Foods">
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group mb-4">
                                                 <label>Description</label>
-                                                <textarea name="editor"></textarea>
+                                                <textarea name="description" id="editor"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group mb-4">
-                                                <label for="">Thumbnail</label>
-                                                <input type="file" name="" id="" class="form-control" />
+                                                <label>Thumbnail</label>
+                                                <input type="file" name="photo" class="form-control" />
                                             </div>
                                             <p class="text-muted">*Dapat memasukkan lebih dari 1 foto product</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button class="btn btn-success w-100" type="submit">
+                                                Create Product
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="py-4">
-                    <button class="btn btn-success w-100" type="submit">
-                        Create Product
-                    </button>
                 </div>
             </div>
         </div>

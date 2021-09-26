@@ -10,6 +10,8 @@
 
         img {
             border-radius: 10px;
+            max-width: 300px;
+            max-height: 300px;
         }
 
         .thumbnail-image {
@@ -73,7 +75,7 @@
             font-size: 16px;
             line-height: 180%;
             color: #525252;
-            
+
             h5 {
                 font-weight: 500;
                 font-size: 16px;

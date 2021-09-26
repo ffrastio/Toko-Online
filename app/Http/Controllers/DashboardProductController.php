@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\ProductRequest;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class DashboardProductController extends Controller
 {
@@ -14,17 +20,43 @@ class DashboardProductController extends Controller
     public function index()
     {
         //
-        return view('pages.dashboard-products');
+        $products = Product::with(['galleries', 'categories'])
+            ->latest()
+            ->where('users_id', Auth::user()->id)
+            ->get();
+        return view('pages.dashboard-products', [
+            'products' => $products
+        ]);
     }
 
-    public function details()
+    public function details(Request $request, $id)
     {
-        return view('pages.dashboard-product-details');
+        $product = Product::with(['galleries', 'user', 'categories'])->findOrFail($id);
+        $categories = Category::all();
+        return view('pages.dashboard-product-details', [
+            'product' => $product,
+            'categories' => $categories,
+        ]);
     }
 
-    public function add()
+    public function uploadGallery(Request $request)
     {
-        return view('pages.dashboard-product-create');
+        $data = $request->all();
+
+        $data['photos'] = $request->file('photos')->store('assets/product', 'public');
+
+        ProductGallery::create($data);
+
+        return redirect()->route('dashboard-product-details', $request->products_id);
+    }
+
+    public function deleteGallery(Request $request, $id)
+    {
+        $item = ProductGallery::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('dashboard-product-details', $item->products_id);
     }
 
     /**
@@ -35,6 +67,10 @@ class DashboardProductController extends Controller
     public function create()
     {
         //
+        $categories = Category::all();
+        return view('pages.dashboard-product-create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -43,9 +79,23 @@ class DashboardProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         //
+        $data = $request->all();
+
+        $data['slug'] = Str::slug($request->name);
+
+        $product = Product::create($data);
+
+        $galleries = [
+            'products_id' => $product->id,
+            'photos' => $request->file('photo')->store('asset/product', 'public')
+        ];
+
+        ProductGallery::create($galleries);
+
+        return redirect()->route('dashboard-products');
     }
 
     /**
@@ -80,6 +130,15 @@ class DashboardProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data = $request->all();
+
+        $data['slug'] = Str::slug($request->name);
+
+        $item = Product::findOrFail($id);
+
+        $item->update($data);
+
+        return redirect()->route('dashboard-products');
     }
 
     /**
