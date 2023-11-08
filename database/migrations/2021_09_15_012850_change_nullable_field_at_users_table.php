@@ -24,7 +24,7 @@ class ChangeNullableFieldAtUsersTable extends Migration
             $table->string('store_name')->nullable()->change();
             $table->string('phone_number')->nullable()->change();
             $table->integer('categories_id')->nullable()->change();
-            $table->integer('status_store')->nullable()->change();
+            $table->integer('store_status')->nullable()->change();
         });
     }
 
@@ -46,7 +46,7 @@ class ChangeNullableFieldAtUsersTable extends Migration
             $table->string('store_name')->nullable(false)->change();
             $table->string('phone_number')->nullable(false)->change();
             $table->integer('categories_id')->nullable(false)->change();
-            $table->integer('status_store')->nullable(false)->change();
+            $table->integer('store_status')->nullable(false)->change();
         });
     }
 }

@@ -87,9 +87,9 @@ class CartController extends Controller
     {
         //
 
-        $cart = Cart::findOrFail($id);
+        $carts = Cart::findOrFail($id);
 
-        $cart->delete();
+        $carts->delete();
 
         return redirect()->route('cart');
     }

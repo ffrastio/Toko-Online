@@ -29,8 +29,8 @@ class CreateUsersTable extends Migration
             $table->string('store_name');
             $table->string('phone_number');
             $table->integer('categories_id');
-            $table->integer('status_store');
-            
+            $table->integer('store_status');
+
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

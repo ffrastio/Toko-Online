@@ -33,7 +33,7 @@
                                 <label>Email Address</label>
                                 <input id="email" v-model="email" name="email" @change="checkForEmailAvailbility()"
                                     type="email" class="form-control @error('email') is-invalid @enderror"
-                                    :class="{ 'is-invalid' : this.email_unavailable }" value="{{ old('email') }}" required
+                                    :class="{ 'is-invalid': this.email_unavailable }" value="{{ old('email') }}" required
                                     autocomplete="email">
 
                                 @error('email')
@@ -70,8 +70,8 @@
                                 <label>Store</label>
                                 <p class="text-muted">Apakah anda juga ingin membuka toko?</p>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" name="is_store_open" id="openStoreTrue"
-                                        v-model="is_store_open" :value="true" />
+                                    <input type="radio" class="custom-control-input" name="is_store_open"
+                                        id="openStoreTrue" v-model="is_store_open" :value="true" />
                                     <label for="openStoreTrue" class="custom-control-label">Baik, Boleh</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
@@ -242,9 +242,9 @@
 
             data() {
                 return {
-                    name: "Fani Frastio",
-                    email: "fanitl2a@gmail.com",
-                    is_store_open: true,
+                    name: "",
+                    email: "",
+                    is_store_open: "",
                     store_name: "",
                     email_unvailable: false,
                 }
