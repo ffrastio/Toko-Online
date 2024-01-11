@@ -21,7 +21,8 @@
                                 <label>Full Name</label>
                                 <input id="name" type="text" v-model="name"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
-                                    value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    value="{{ old('name') }}" required autocomplete="name" autofocus
+                                    placeholder="Nama Lengkap">
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +35,7 @@
                                 <input id="email" v-model="email" name="email" @change="checkForEmailAvailbility()"
                                     type="email" class="form-control @error('email') is-invalid @enderror"
                                     :class="{ 'is-invalid': this.email_unavailable }" value="{{ old('email') }}" required
-                                    autocomplete="email">
+                                    autocomplete="email" placeholder="xyz123@gmail.com">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -80,7 +81,7 @@
                                     <label for="openStoreFalse" class="custom-control-label">Tidak, Nanti saja</label>
                                 </div>
                             </div>
-                            <div class="form-group mb-4" v-if="is_store_open">
+                            {{-- <div class="form-group mb-4" v-if="is_store_open">
                                 <label>Nama Toko</label>
                                 <input type="text" class="form-control" v-model="store_name" id="store_name"
                                     class="form-control @error('store_name') is-invalid @enderror" name="store_name"
@@ -99,8 +100,7 @@
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-
+                            </div> --}}
                             <button type="submit" class="btn btn-success px-4 btn-block"
                                 :disabled="this.email_unvailable">Sign Up Now</button>
                             <a href="{{ route('login') }}" class="btn btn-signup mt-2 px-4 btn-block">Back to Sign In</a>
